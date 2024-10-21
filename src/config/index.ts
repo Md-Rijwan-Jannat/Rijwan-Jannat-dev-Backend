@@ -9,4 +9,8 @@ export default {
   cloudinary_api_key: process.env.cloudinary_api_key,
   cloudinary_api_secret: process.env.cloudinary_api_secret,
   bcrypt_salt_rounds: process.env.bcrypt_salt_rounds,
+  admin_image: process.env.admin_image,
+  admin_email: process.env.admin_email,
+  admin_password: process.env.admin_password,
+  jwt_secret: process.env.jwt_secret,
 };

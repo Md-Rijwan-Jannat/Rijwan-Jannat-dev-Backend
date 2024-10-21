@@ -1,61 +1,44 @@
-import { model, Schema } from 'mongoose';
-import { TAdmin } from './admin.interface';
-import config from '../../../config';
-import bcrypt from 'bcrypt';
+import httpStatus from 'http-status';
+import catchAsync from '../../utils/catchAsync';
+import sendResponse from '../../utils/sendResponse';
+import { AdminService } from './admin.service';
 
-const userSchema = new Schema<TAdmin>(
-  {
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    password: {
-      type: String,
-      required: true,
-      select: 0,
-    },
-  },
-  {
-    timestamps: true,
-  }
-);
+const createAdmin = catchAsync(async (req, res) => {
+  const result = await AdminService.createAdminIntoDB(req.body);
 
-userSchema.pre('save', async function (next) {
-  // eslint-disable-next-line @typescript-eslint/no-this-alias
-  const user = this; // doc
-  // hashing password and save into DB
-  user.password = await bcrypt.hash(
-    user.password,
-    Number(config.bcrypt_salt_rounds)
-  );
-  next();
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Admin is created successfully',
+    data: result,
+  });
 });
 
-// set '' after saving password
-userSchema.post('save', function (doc, next) {
-  doc.password = '';
-  next();
+const getAdmin = catchAsync(async (req, res) => {
+  const result = await AdminService.getAdminFormDB(req.params.adminId);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Get admin successfully',
+    data: result,
+  });
 });
 
-userSchema.statics.isUserExistsByCustomId = async function (id: string) {
-  return await User.findOne({ id }).select('+password');
-};
+// login
+const loginAdmin = catchAsync(async (req, res) => {
+  const result = await AdminService.loginAdmin(req.body);
 
-userSchema.statics.isPasswordMatched = async function (
-  plainTextPassword,
-  hashedPassword
-) {
-  return await bcrypt.compare(plainTextPassword, hashedPassword);
-};
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Login successful',
+    data: result,
+  });
+});
 
-userSchema.statics.isJWTIssuedBeforePasswordChanged = function (
-  passwordChangedTimestamp: Date,
-  jwtIssuedTimestamp: number
-) {
-  const passwordChangedTime =
-    new Date(passwordChangedTimestamp).getTime() / 1000;
-  return passwordChangedTime > jwtIssuedTimestamp;
+export const AdminController = {
+  createAdmin,
+  getAdmin,
+  loginAdmin,
 };
-
-export const User = model<TAdmin>('Admin', userSchema);
