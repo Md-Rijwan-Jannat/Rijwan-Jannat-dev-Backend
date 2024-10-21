@@ -26,8 +26,9 @@ const projectSchema: Schema = new Schema(
       required: true,
     },
     technologies: {
-      type: [String],
+      type: [Schema.Types.ObjectId],
       required: true,
+      ref: 'Skill',
     },
     images: {
       type: [String],

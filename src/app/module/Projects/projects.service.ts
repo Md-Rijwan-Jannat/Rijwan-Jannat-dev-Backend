@@ -7,12 +7,12 @@ const createProject = async (payload: TProject) => {
 };
 
 const getAllProjects = async () => {
-  const projects = await Project.find();
+  const projects = await Project.find().populate('technologies');
   return projects;
 };
 
 const getProjectById = async (id: string) => {
-  const project = await Project.findById(id);
+  const project = await Project.findById(id).populate('technologies');
   if (!project) {
     throw new Error('Project not found');
   }
@@ -31,11 +31,11 @@ const updateProjectById = async (id: string, payload: Partial<TProject>) => {
 };
 
 const deleteProjectById = async (id: string) => {
-  const updatedProject = await Project.findByIdAndDelete(id);
-  if (!updatedProject) {
+  const deletedProject = await Project.findByIdAndDelete(id);
+  if (!deletedProject) {
     throw new Error('Project not found');
   }
-  return updatedProject;
+  return deletedProject;
 };
 
 export const ProjectService = {

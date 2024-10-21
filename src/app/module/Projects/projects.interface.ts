@@ -1,3 +1,5 @@
+import { Types } from 'mongoose';
+
 // Define the structure of a project document
 export interface TProject {
   title: string;
@@ -7,7 +9,7 @@ export interface TProject {
     backend: string;
   };
   live: string;
-  technologies: string[];
+  technologies: [Types.ObjectId];
   images: string[];
   createdAt?: Date;
   updatedAt?: Date;

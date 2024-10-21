@@ -2,6 +2,8 @@ import { Router } from 'express';
 import { AdminRoutes } from '../module/Admin/admin.routes';
 import { ProjectRoutes } from '../module/Projects/projects.routes';
 import { SkillRoutes } from '../module/Skills/skills.routes';
+import { ExperienceRoutes } from '../module/Experience/experience.routes';
+import { EducationRoutes } from '../module/Education/education.routes';
 
 const router = Router();
 
@@ -11,12 +13,20 @@ const moduleRoutes = [
     route: AdminRoutes,
   },
   {
+    path: '/experiences',
+    route: ExperienceRoutes,
+  },
+  {
     path: '/skills',
     route: SkillRoutes,
   },
   {
     path: '/projects',
     route: ProjectRoutes,
+  },
+  {
+    path: '/educations',
+    route: EducationRoutes,
   },
 ];
 
