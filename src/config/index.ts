@@ -13,4 +13,5 @@ export default {
   admin_email: process.env.admin_email,
   admin_password: process.env.admin_password,
   jwt_secret: process.env.jwt_secret,
+  jwt_secret_expires_in: process.env.jwt_secret_expires_in,
 };

@@ -15,7 +15,7 @@ const createAdmin = catchAsync(async (req, res) => {
 });
 
 const getAdmin = catchAsync(async (req, res) => {
-  const result = await AdminService.getAdminFormDB(req.params.adminId);
+  const result = await AdminService.getAdminFromDB(req.params.adminId);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

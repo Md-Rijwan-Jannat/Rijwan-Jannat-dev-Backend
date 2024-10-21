@@ -1,11 +1,19 @@
 import { Schema, model } from 'mongoose';
-import { TSkill } from './skills.interface';
+import { TSkill, SkillLevel, SkillCategory } from './skills.interface';
 
 const skillSchema = new Schema<TSkill>(
   {
     name: { type: String, required: true },
-    level: { type: String, required: true },
-    category: { type: String, required: true },
+    level: {
+      type: String,
+      required: true,
+      enum: Object.values(SkillLevel),
+    },
+    category: {
+      type: String,
+      required: true,
+      enum: Object.values(SkillCategory),
+    },
     icon: { type: String, required: true },
   },
   { timestamps: true }

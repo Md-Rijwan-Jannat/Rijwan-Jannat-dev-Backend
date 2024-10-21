@@ -3,6 +3,7 @@ import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import { SkillService } from './skills.service';
 
+// Create a new skill
 const createSkill = catchAsync(async (req, res) => {
   const result = await SkillService.createSkillIntoDB(req.body);
 
@@ -14,28 +15,34 @@ const createSkill = catchAsync(async (req, res) => {
   });
 });
 
+// Get all skills, optionally filter by category
 const getAllSkills = catchAsync(async (req, res) => {
-  const result = await SkillService.getAllSkillsFromDB();
+  const { category } = req.query;
+  const result = await SkillService.getAllSkillsFromDB(category as string);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Skills fetched successfully',
+    message: category
+      ? `Skills for category: ${category}`
+      : 'All skills retrieved successfully',
     data: result,
   });
 });
 
+// Get a skill by ID
 const getSkill = catchAsync(async (req, res) => {
   const result = await SkillService.getSkillFromDB(req.params.id);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Skill fetched successfully',
+    message: 'Get skill successfully',
     data: result,
   });
 });
 
+// Update a skill
 const updateSkill = catchAsync(async (req, res) => {
   const result = await SkillService.updateSkillInDB(req.params.id, req.body);
 
@@ -47,6 +54,7 @@ const updateSkill = catchAsync(async (req, res) => {
   });
 });
 
+// Delete a skill
 const deleteSkill = catchAsync(async (req, res) => {
   const result = await SkillService.deleteSkillFromDB(req.params.id);
 

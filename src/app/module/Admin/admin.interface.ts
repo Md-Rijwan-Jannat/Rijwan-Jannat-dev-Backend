@@ -4,14 +4,12 @@ export interface TAdmin {
   name: string;
   email: string;
   password: string;
-  role: boolean;
+  role: 'ADMIN';
   image: string;
 }
 
 export interface AdminModel extends Model<TAdmin> {
-  //instance methods for checking if the Admin exist
-  isAdminExistsByCustomId(id: string): Promise<TAdmin>;
-  //instance methods for checking if passwords are matched
+  isAdminExistsByCustomId(id: string): Promise<TAdmin | null>;
   isPasswordMatched(
     plainTextPassword: string,
     hashedPassword: string

@@ -13,13 +13,17 @@ const AdminSchema = new Schema<TAdmin, AdminModel>(
     email: {
       type: String,
       unique: true,
+      required: true,
     },
     password: {
       type: String,
+      required: true,
+      select: false,
     },
     role: {
-      type: Boolean,
-      default: true,
+      type: String,
+      enum: ['ADMIN'],
+      default: 'ADMIN',
     },
     image: {
       type: String,
@@ -31,29 +35,29 @@ const AdminSchema = new Schema<TAdmin, AdminModel>(
   }
 );
 
+// Pre-save hook for hashing password
 AdminSchema.pre('save', async function (next) {
-  const Admin = this;
-  // hashing password and save into DB
-  Admin.password = await bcrypt.hash(
-    Admin.password,
-    Number(config.bcrypt_salt_rounds)
-  );
+  const admin = this;
+
+  // Only hash password if it has been modified
+  if (admin.isModified('password')) {
+    admin.password = await bcrypt.hash(
+      admin.password,
+      Number(config.bcrypt_salt_rounds)
+    );
+  }
+
   next();
 });
 
-// set '' after saving password
-AdminSchema.post('save', function (doc, next) {
-  doc.password = '';
-  next();
-});
-
+// Static methods
 AdminSchema.statics.isAdminExistsByCustomId = async function (id: string) {
-  return await Admin.findOne({ id }).select('+password');
+  return await Admin.findOne({ _id: id }).select('+password');
 };
 
 AdminSchema.statics.isPasswordMatched = async function (
-  plainTextPassword,
-  hashedPassword
+  plainTextPassword: string,
+  hashedPassword: string
 ) {
   return await bcrypt.compare(plainTextPassword, hashedPassword);
 };
