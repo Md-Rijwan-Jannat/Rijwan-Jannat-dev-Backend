@@ -11,6 +11,8 @@ router.post(
   AdminController.createAdmin
 );
 
+router.patch('/', AdminController.updateAdmin);
+
 router.post(
   '/login',
   validateRequest(AdminValidation.loginValidationSchema),

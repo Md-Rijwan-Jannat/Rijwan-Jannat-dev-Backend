@@ -10,35 +10,49 @@ import { Admin } from '../module/Admin/admin.model';
 
 const Auth = (...requiredRoles: (keyof typeof USER_ROLE)[]) => {
   return catchAsync(async (req, res, next) => {
-    const token = req.headers.authorization;
-    console.log(token);
+    const authHeader = req.headers.authorization;
 
-    // checking if the token is missing
-    if (!token) {
+    // Checking if the Authorization header is missing
+    if (!authHeader) {
       throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized!');
     }
 
+    // Ensure the token has 'Bearer' prefix and split it
+    const token = authHeader.startsWith('Bearer ')
+      ? authHeader.split(' ')[1] // Extract the token without 'Bearer' prefix
+      : authHeader;
+
+    if (!token) {
+      throw new AppError(httpStatus.UNAUTHORIZED, 'Invalid token format!');
+    }
+
+    // Verify the token
     const decoded = verifyToken(
       token,
       config.jwt_secret as string
     ) as JwtPayload;
 
-    const { id, role, email, iat } = decoded;
+    const { id, role, email } = decoded;
 
-    // checking if the user is exist
+    // Check if the user exists
     const admin = await Admin.findById(id);
-
-    console.log(admin);
-
     if (!admin) {
-      throw new AppError(httpStatus.NOT_FOUND, 'This user is not found !');
+      throw new AppError(httpStatus.NOT_FOUND, 'This user is not found!');
     }
 
-    if (requiredRoles && requiredRoles.includes(role)) {
-      throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized');
+    // Check if the role is authorized
+    if (
+      requiredRoles &&
+      requiredRoles.length &&
+      !requiredRoles.includes(role)
+    ) {
+      throw new AppError(
+        httpStatus.UNAUTHORIZED,
+        'You are not authorized for this action'
+      );
     }
 
-    req.user = decoded as JwtPayload;
+    req.user = decoded;
     next();
   });
 };

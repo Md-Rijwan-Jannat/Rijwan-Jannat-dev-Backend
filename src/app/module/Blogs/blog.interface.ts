@@ -1,10 +1,7 @@
+import { Types } from 'mongoose';
+
 export interface TBlog {
-  title: string;
-  author: string;
+  author: Types.ObjectId;
   content: string;
-  tags: string[];
-  publishedDate: Date;
-  isPublished: boolean;
-  summary: string;
   imageUrl?: string;
 }

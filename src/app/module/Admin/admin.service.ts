@@ -1,11 +1,17 @@
 import config from '../../../config';
 import { createToken } from '../../utils/tokenGenerateFunction';
+import { TAdmin } from './admin.interface';
 import { Admin } from './admin.model';
 import bcrypt from 'bcrypt';
 
 const createAdminIntoDB = async (payload: any) => {
   // The password will be hashed in the Admin model's pre-save hook
   const result = await Admin.create(payload);
+  return result;
+};
+
+const updateAdminIntoDB = async (payload: Partial<TAdmin>, id: string) => {
+  const result = await Admin.findByIdAndUpdate(id, payload, { new: true });
   return result;
 };
 
@@ -52,6 +58,7 @@ const loginAdmin = async (payload: { email: string; password: string }) => {
 
 export const AdminService = {
   createAdminIntoDB,
+  updateAdminIntoDB,
   getAdminFromDB,
   loginAdmin,
 };

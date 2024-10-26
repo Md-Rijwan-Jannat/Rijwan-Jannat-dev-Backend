@@ -14,6 +14,18 @@ const createAdmin = catchAsync(async (req, res) => {
   });
 });
 
+const updateAdmin = catchAsync(async (req, res) => {
+  const id = req.user.id;
+  const result = await AdminService.updateAdminIntoDB(req.body, id);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Admin is update successfully',
+    data: result,
+  });
+});
+
 const getAdmin = catchAsync(async (req, res) => {
   const result = await AdminService.getAdminFromDB(req.params.adminId);
 
@@ -39,6 +51,7 @@ const loginAdmin = catchAsync(async (req, res) => {
 
 export const AdminController = {
   createAdmin,
+  updateAdmin,
   getAdmin,
   loginAdmin,
 };

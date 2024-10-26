@@ -21,7 +21,7 @@ app.use(cors({ origin: ['http://localhost:5173'], credentials: true }));
 app.use('/api/v1', router);
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('Hello from boiler plate code');
+  res.send('rijwan jannat started');
 });
 
 // This is connected with the globalErrorhandler.ts file at the middleware folder.

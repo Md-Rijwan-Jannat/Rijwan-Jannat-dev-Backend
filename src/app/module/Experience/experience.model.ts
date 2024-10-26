@@ -31,7 +31,7 @@ const experienceSchema = new Schema<TExperience>(
       {
         type: Schema.Types.ObjectId,
         required: true,
-        ref: 'skill',
+        ref: 'Skill',
       },
     ],
   },
