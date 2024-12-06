@@ -16,7 +16,7 @@ const updateAdminIntoDB = async (payload: Partial<TAdmin>, id: string) => {
 };
 
 const getAdminFromDB = async (id: string) => {
-  const result = await Admin.findById(id);
+  const result = await Admin.findById(id).sort('-createdAt');
   return result;
 };
 

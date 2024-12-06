@@ -7,7 +7,9 @@ const createProject = async (payload: TProject) => {
 };
 
 const getAllProjects = async () => {
-  const projects = await Project.find().populate('technologies');
+  const projects = await Project.find()
+    .populate('technologies')
+    .sort('createdAt');
   return projects;
 };
 

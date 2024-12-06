@@ -7,7 +7,7 @@ const createBlogIntoDB = async (payload: TBlog, id: string) => {
 };
 
 const getAllBlogsFromDB = async () => {
-  const result = await Blog.find().populate('author');
+  const result = await Blog.find().populate('author').sort('-createdAt');
   return result;
 };
 

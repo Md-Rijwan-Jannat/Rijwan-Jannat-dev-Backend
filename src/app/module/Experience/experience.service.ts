@@ -7,7 +7,9 @@ const createExperienceIntoDB = async (payload: TExperience) => {
 };
 
 const getAllExperiencesFromDB = async () => {
-  const result = await Experience.find().populate('technologies');
+  const result = await Experience.find()
+    .sort('-createdAt')
+    .populate('technologies');
   return result;
 };
 

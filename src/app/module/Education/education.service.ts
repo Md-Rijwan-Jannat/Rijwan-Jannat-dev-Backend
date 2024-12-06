@@ -7,7 +7,7 @@ const createEducationIntoDB = async (payload: TEducation) => {
 };
 
 const getAllEducationsFromDB = async () => {
-  const result = await Education.find();
+  const result = await Education.find().sort('-createdAt');
   return result;
 };
 

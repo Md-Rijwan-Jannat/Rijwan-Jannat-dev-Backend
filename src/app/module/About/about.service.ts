@@ -9,7 +9,7 @@ const createAboutIntoDB = async (payload: TAbout, adminId: string) => {
 
 // Get all about entries
 const getAllAboutFromDB = async () => {
-  const result = await About.find().populate('me');
+  const result = await About.find().sort('-createdAt').populate('me');
   return result;
 };
 

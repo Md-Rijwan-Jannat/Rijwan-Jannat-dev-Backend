@@ -10,7 +10,7 @@ const createSkillIntoDB = async (payload: TSkill) => {
 // Get all skills or filter by category
 const getAllSkillsFromDB = async (category?: string) => {
   const filter = category ? { category } : {};
-  const result = await Skill.find(filter);
+  const result = await Skill.find(filter).sort('createdAt');
   return result;
 };
 
