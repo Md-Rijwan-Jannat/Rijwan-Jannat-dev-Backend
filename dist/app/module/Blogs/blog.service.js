@@ -16,7 +16,7 @@ const createBlogIntoDB = (payload, id) => __awaiter(void 0, void 0, void 0, func
     return result;
 });
 const getAllBlogsFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield blog_model_1.Blog.find().populate('author');
+    const result = yield blog_model_1.Blog.find().populate('author').sort('-createdAt');
     return result;
 });
 const getBlogFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {

@@ -27,7 +27,7 @@ const updateAdminIntoDB = (payload, id) => __awaiter(void 0, void 0, void 0, fun
     return result;
 });
 const getAdminFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield admin_model_1.Admin.findById(id);
+    const result = yield admin_model_1.Admin.findById(id).sort('-createdAt');
     return result;
 });
 // New function for login

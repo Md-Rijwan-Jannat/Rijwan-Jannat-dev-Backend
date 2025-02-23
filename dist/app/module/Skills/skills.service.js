@@ -19,7 +19,7 @@ const createSkillIntoDB = (payload) => __awaiter(void 0, void 0, void 0, functio
 // Get all skills or filter by category
 const getAllSkillsFromDB = (category) => __awaiter(void 0, void 0, void 0, function* () {
     const filter = category ? { category } : {};
-    const result = yield skills_model_1.Skill.find(filter);
+    const result = yield skills_model_1.Skill.find(filter).sort('createdAt');
     return result;
 });
 // Get a single skill by ID

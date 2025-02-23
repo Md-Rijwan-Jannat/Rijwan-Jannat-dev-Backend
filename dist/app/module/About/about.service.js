@@ -18,7 +18,7 @@ const createAboutIntoDB = (payload, adminId) => __awaiter(void 0, void 0, void 0
 });
 // Get all about entries
 const getAllAboutFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield about_model_1.About.find().populate('me');
+    const result = yield about_model_1.About.find().sort('-createdAt').populate('me');
     return result;
 });
 // Get a single about entry by ID

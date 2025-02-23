@@ -16,7 +16,9 @@ const createProject = (payload) => __awaiter(void 0, void 0, void 0, function* (
     return newProject;
 });
 const getAllProjects = () => __awaiter(void 0, void 0, void 0, function* () {
-    const projects = yield projects_model_1.Project.find().populate('technologies');
+    const projects = yield projects_model_1.Project.find()
+        .populate('technologies')
+        .sort('createdAt');
     return projects;
 });
 const getProjectById = (id) => __awaiter(void 0, void 0, void 0, function* () {

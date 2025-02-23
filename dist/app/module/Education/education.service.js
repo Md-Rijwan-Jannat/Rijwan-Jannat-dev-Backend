@@ -16,7 +16,7 @@ const createEducationIntoDB = (payload) => __awaiter(void 0, void 0, void 0, fun
     return result;
 });
 const getAllEducationsFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield education_model_1.Education.find();
+    const result = yield education_model_1.Education.find().sort('-createdAt');
     return result;
 });
 const getEducationFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
