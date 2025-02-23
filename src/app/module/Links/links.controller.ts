@@ -5,7 +5,6 @@ import sendResponse from "../../utils/sendResponse";
 import { LinksService } from "./links.service";
 
 const createLink = catchAsync(async (req: Request, res: Response) => {
-  console.log("payload data=>", req.body);
   const result = await LinksService.createLinkInDB(req.body);
 
   sendResponse(res, {
