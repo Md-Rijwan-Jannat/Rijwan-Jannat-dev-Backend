@@ -1,42 +1,47 @@
-import { Router } from 'express';
-import { AdminRoutes } from '../module/Admin/admin.routes';
-import { ProjectRoutes } from '../module/Projects/projects.routes';
-import { SkillRoutes } from '../module/Skills/skills.routes';
-import { ExperienceRoutes } from '../module/Experience/experience.routes';
-import { EducationRoutes } from '../module/Education/education.routes';
-import { BlogRoutes } from '../module/Blogs/blog.routes';
-import { AboutRoutes } from '../module/About/about.routes';
+import { Router } from "express";
+import { AdminRoutes } from "../module/Admin/admin.routes";
+import { ProjectRoutes } from "../module/Projects/projects.routes";
+import { SkillRoutes } from "../module/Skills/skills.routes";
+import { ExperienceRoutes } from "../module/Experience/experience.routes";
+import { EducationRoutes } from "../module/Education/education.routes";
+import { BlogRoutes } from "../module/Blogs/blog.routes";
+import { AboutRoutes } from "../module/About/about.routes";
+import { LinksRoutes } from "../module/Links/links.routes";
 
 const router = Router();
 
 const moduleRoutes = [
   {
-    path: '/users',
+    path: "/users",
     route: AdminRoutes,
   },
   {
-    path: '/experiences',
+    path: "/experiences",
     route: ExperienceRoutes,
   },
   {
-    path: '/skills',
+    path: "/skills",
     route: SkillRoutes,
   },
   {
-    path: '/projects',
+    path: "/projects",
     route: ProjectRoutes,
   },
   {
-    path: '/educations',
+    path: "/educations",
     route: EducationRoutes,
   },
   {
-    path: '/blogs',
+    path: "/blogs",
     route: BlogRoutes,
   },
   {
-    path: '/about',
+    path: "/about",
     route: AboutRoutes,
+  },
+  {
+    path: "/links",
+    route: LinksRoutes,
   },
 ];
 
