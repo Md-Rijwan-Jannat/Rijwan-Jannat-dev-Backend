@@ -1,9 +1,13 @@
-import { Schema, model } from 'mongoose';
-import { TExperience } from './experience.interface';
+import { Schema, model } from "mongoose";
+import { TExperience } from "./experience.interface";
 
 const experienceSchema = new Schema<TExperience>(
   {
     title: {
+      type: String,
+      required: true,
+    },
+    logo: {
       type: String,
       required: true,
     },
@@ -31,11 +35,11 @@ const experienceSchema = new Schema<TExperience>(
       {
         type: Schema.Types.ObjectId,
         required: true,
-        ref: 'Skill',
+        ref: "Skill",
       },
     ],
   },
   { timestamps: true }
 );
 
-export const Experience = model<TExperience>('Experience', experienceSchema);
+export const Experience = model<TExperience>("Experience", experienceSchema);

@@ -1,7 +1,8 @@
-import { Types } from 'mongoose';
+import { Types } from "mongoose";
 
 export interface TExperience {
   title: string;
+  logo: string;
   company: string;
   location: string;
   startDate: Date;
