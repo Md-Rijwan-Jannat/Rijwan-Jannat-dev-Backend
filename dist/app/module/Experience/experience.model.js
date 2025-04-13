@@ -7,6 +7,10 @@ const experienceSchema = new mongoose_1.Schema({
         type: String,
         required: true,
     },
+    logo: {
+        type: String,
+        required: true,
+    },
     company: {
         type: String,
         required: true,
@@ -31,8 +35,8 @@ const experienceSchema = new mongoose_1.Schema({
         {
             type: mongoose_1.Schema.Types.ObjectId,
             required: true,
-            ref: 'Skill',
+            ref: "Skill",
         },
     ],
 }, { timestamps: true });
-exports.Experience = (0, mongoose_1.model)('Experience', experienceSchema);
+exports.Experience = (0, mongoose_1.model)("Experience", experienceSchema);
